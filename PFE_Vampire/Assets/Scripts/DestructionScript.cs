@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletBehavior : MonoBehaviour
+public class DestructionScript : MonoBehaviour
 {
 
-    public float speed = 20f;
-    public Rigidbody rb;
+    public GameObject door;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb.velocity = transform.right * speed;
+        
     }
 
     // Update is called once per frame
@@ -20,9 +19,8 @@ public class BulletBehavior : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider hitInfo)
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(hitInfo.name);
-        Destroy(gameObject);
+        Destroy(door.gameObject);
     }
 }

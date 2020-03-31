@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
             if (wallInfo.collider.tag == "Ground")
             {
                 isGrounded = true;
-               // speed = 0; // Quand raycast touche un mur speed = 0 pour pas passer à travers
+               //speed = 5; // Quand raycast touche un mur speed = 0 pour pas passer à travers
             }
         }
 
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log(wallInfoLeft.collider.tag);
             if (wallInfoLeft.collider.tag == "Ground")
                 isGrounded = true;
-               // speed = 0; // Quand raycast touche un mur speed = 0 pour pas passer à travers
+               //speed = 5; // Quand raycast touche un mur speed = 0 pour pas passer à travers
         }
 
         
