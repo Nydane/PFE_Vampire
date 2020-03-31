@@ -19,13 +19,23 @@ public class PlayerController : MonoBehaviour
     private float mouvementDcr;
 
     public Rigidbody rb;
+    public GameObject upObj;
+    public GameObject downObj;
+    public GameObject leftObj;
+    public GameObject rightObj;
+    public GameObject render;
+
     public float jumpVelocity;
+    public float pikeVelocity;
 
     public bool isGrounded = true;
 
-    Ray groundRay;
-    Ray wallRay;
-    Ray wallRayLeft;
+    Ray downRay;
+    Ray rightRay;
+    Ray leftRay;
+    Ray upRay;
+   
+
     public float rayLength = 2f;
     public float rayLengthWall = 2f;
 
@@ -42,15 +52,22 @@ public class PlayerController : MonoBehaviour
     {
         
         //Système de Raycast pour avoir des informations
-        groundRay = new Ray(transform.position, Vector3.down*rayLength);
-        Debug.DrawRay(transform.position, Vector3.down * rayLength);
-        wallRay = new Ray(transform.position, Vector3.right * rayLengthWall);
-        Debug.DrawRay(transform.position, Vector3.right * rayLengthWall);
-        wallRayLeft = new Ray(transform.position, Vector3.left * rayLengthWall);
-        Debug.DrawRay(transform.position, Vector3.left * rayLengthWall);
+        downRay = new Ray(downObj.transform.position, Vector3.down*rayLength);
+        Debug.DrawRay(downObj.transform.position, Vector3.down * rayLength);
+
+        rightRay = new Ray(rightObj.transform.position, Vector3.right * rayLengthWall);
+        Debug.DrawRay(rightObj.transform.position, Vector3.right * rayLengthWall);
+
+        leftRay = new Ray(leftObj.transform.position, Vector3.left * rayLengthWall);
+        Debug.DrawRay(leftObj.transform.position, Vector3.left * rayLengthWall);
+
+        upRay = new Ray(upObj.transform.position, Vector3.up * rayLength);
+        Debug.DrawRay(upObj.transform.position, Vector3.up * rayLength);
+
+
 
         //Reset Jump quand le Raycast touche le sol
-        if (Physics.Raycast (groundRay,out RaycastHit groundInfo,rayLength))
+        if (Physics.Raycast (downRay,out RaycastHit groundInfo,rayLength))
         {
             Debug.Log(groundInfo.collider.tag);
             if (groundInfo.collider.tag == "Ground")
@@ -62,22 +79,23 @@ public class PlayerController : MonoBehaviour
 
         //Reset Jump quand le Raycast Touche un wall
 
-    if (Physics.Raycast (wallRay, out RaycastHit wallInfo, rayLengthWall))
+    if (Physics.Raycast (rightRay, out RaycastHit wallInfo, rayLengthWall))
         {
             
             Debug.Log(wallInfo.collider.tag);
-            if (wallInfo.collider.tag == "Wall")
+            if (wallInfo.collider.tag == "Ground")
             {
                 isGrounded = true;
-                speed = 0; // Quand raycast touche un mur speed = 0 pour pas passer à travers
+               // speed = 0; // Quand raycast touche un mur speed = 0 pour pas passer à travers
             }
         }
 
-        if (Physics.Raycast(wallRayLeft, out RaycastHit wallInfoLeft, rayLengthWall))
+        if (Physics.Raycast(leftRay, out RaycastHit wallInfoLeft, rayLengthWall))
         {
             Debug.Log(wallInfoLeft.collider.tag);
-            if (wallInfoLeft.collider.tag == "Wall")
+            if (wallInfoLeft.collider.tag == "Ground")
                 isGrounded = true;
+               // speed = 0; // Quand raycast touche un mur speed = 0 pour pas passer à travers
         }
 
         
@@ -130,14 +148,14 @@ public class PlayerController : MonoBehaviour
         //ce qui fait bouger le perso
         rb.MovePosition(transform.position + new Vector3(speed, 0, 0) * Time.deltaTime);
         
-        //direction du personnage
+        //direction du personnage : on fait rotate le render et non le player en tant que tel
         if (horizontalMovement <=-0.1)
         {
-            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            render.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
         }
         if (horizontalMovement >= 0.1)
         {
-            transform.rotation = Quaternion.Euler(0f, 0f, 0f); 
+            render.transform.rotation = Quaternion.Euler(0f, 0f, 0f); 
 
         }
 
@@ -150,6 +168,13 @@ public class PlayerController : MonoBehaviour
            
         }
 
+        //Piqué
+        if (Input.GetKeyDown(KeyCode.A) && isGrounded == false)
+        {
+            rb.velocity = Vector3.down * pikeVelocity;
+            Debug.Log("piqué");
+            
+        }
      
     }  
     
