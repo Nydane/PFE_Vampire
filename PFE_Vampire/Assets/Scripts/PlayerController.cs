@@ -6,10 +6,21 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private float speed = 0;
+    [SerializeField]
+    private float maxSpeed = 1;
+    [SerializeField]
+    private float speedIncr = 1;
+    [SerializeField]
+    private float speedDecr = 0.999f;
+    [SerializeField]
+    private float stopLimite = 5f;
+
+
+    private float mouvementDcr;
+
     public Rigidbody rb;
     public float jumpVelocity;
 
-    public Collider groundCollider;
     public bool isGrounded = true;
 
     Ray groundRay;
@@ -23,7 +34,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        rb = transform.GetComponent<Rigidbody>();
     }
     
     // Update is called once per frame
@@ -53,9 +64,13 @@ public class PlayerController : MonoBehaviour
 
     if (Physics.Raycast (wallRay, out RaycastHit wallInfo, rayLengthWall))
         {
+            
             Debug.Log(wallInfo.collider.tag);
             if (wallInfo.collider.tag == "Wall")
+            {
                 isGrounded = true;
+                speed = 0; // Quand raycast touche un mur speed = 0 pour pas passer à travers
+            }
         }
 
         if (Physics.Raycast(wallRayLeft, out RaycastHit wallInfoLeft, rayLengthWall))
@@ -65,12 +80,57 @@ public class PlayerController : MonoBehaviour
                 isGrounded = true;
         }
 
-
+        
 
         //Movement et rotation du personnage
         float horizontalMovement = Input.GetAxis("Horizontal");
-        transform.Translate(new Vector3(horizontalMovement, 0, 0) * Time.deltaTime * speed,Space.World);
+        
 
+
+        // incrementation et décrementation de vitesse
+        if (horizontalMovement > 0)
+        {
+            if (speed < 0) speed = 0;
+
+            if (Mathf.Abs(speed) < maxSpeed)
+            {
+                speed += (Time.deltaTime * speedIncr);
+                if (Mathf.Abs(speed) > maxSpeed)
+                {
+                    speed = maxSpeed;
+                }
+            }
+
+        }
+        else if (horizontalMovement < 0)
+        {
+            if (speed > 0) speed = 0;
+
+
+            if (Mathf.Abs(speed) < maxSpeed)
+            {
+                speed -= (Time.deltaTime * speedIncr);
+                if (Mathf.Abs(speed) > maxSpeed)
+                {
+                    speed = -maxSpeed;
+                }
+            }
+
+        }
+        else 
+        {
+            speed *= speedDecr;   // speedDecr entre 0 et 1
+            if (Mathf.Abs(speed) < stopLimite)
+            {
+                speed = 0;
+            }
+        }
+
+                       
+        //ce qui fait bouger le perso
+        rb.MovePosition(transform.position + new Vector3(speed, 0, 0) * Time.deltaTime);
+        
+        //direction du personnage
         if (horizontalMovement <=-0.1)
         {
             transform.rotation = Quaternion.Euler(0f, 180f, 0f);
@@ -80,6 +140,8 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, 0f, 0f); 
 
         }
+
+       
         //jump du personnage
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
         {
