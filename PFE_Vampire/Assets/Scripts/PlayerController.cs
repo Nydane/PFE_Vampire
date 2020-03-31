@@ -27,8 +27,10 @@ public class PlayerController : MonoBehaviour
 
     public float jumpVelocity;
     public float pikeVelocity;
+    public float dashVelocity;
 
     public bool isGrounded = true;
+    public bool canDash = true;
 
     Ray downRay;
     Ray rightRay;
@@ -66,18 +68,19 @@ public class PlayerController : MonoBehaviour
 
 
 
-        //Reset Jump quand le Raycast touche le sol
+        //Reset Jump & dash quand le Raycast touche le sol
         if (Physics.Raycast (downRay,out RaycastHit groundInfo,rayLength))
         {
             Debug.Log(groundInfo.collider.tag);
             if (groundInfo.collider.tag == "Ground")
                 isGrounded = true;
+                 canDash = true;
 
         }
 
         else isGrounded = false;
 
-        //Reset Jump quand le Raycast Touche un wall
+        //Reset Jump && dash quand le Raycast Touche un wall
 
     if (Physics.Raycast (rightRay, out RaycastHit wallInfo, rayLengthWall))
         {
@@ -86,7 +89,8 @@ public class PlayerController : MonoBehaviour
             if (wallInfo.collider.tag == "Ground")
             {
                 isGrounded = true;
-               //speed = 5; // Quand raycast touche un mur speed = 0 pour pas passer à travers
+                canDash = true;
+                //speed = 5; // Quand raycast touche un mur speed = 0 pour pas passer à travers
             }
         }
 
@@ -95,7 +99,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log(wallInfoLeft.collider.tag);
             if (wallInfoLeft.collider.tag == "Ground")
                 isGrounded = true;
-               //speed = 5; // Quand raycast touche un mur speed = 0 pour pas passer à travers
+                canDash = true;
+            //speed = 5; // Quand raycast touche un mur speed = 0 pour pas passer à travers
         }
 
         
@@ -176,6 +181,26 @@ public class PlayerController : MonoBehaviour
             
         }
      
+        //Dash
+
+        if (Input.GetKeyDown(KeyCode.E) && canDash == true)
+        {
+            
+            Debug.Log("dash");
+            if (horizontalMovement <= -0.1)
+            {
+                rb.velocity = Vector3.left * dashVelocity;
+            }
+
+            if (horizontalMovement >= 0.1)
+            {
+                rb.velocity = Vector3.right * dashVelocity;
+            }
+
+            canDash = false;
+            // else tu dash pas
+
+        }
     }  
     
   

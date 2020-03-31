@@ -604,7 +604,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-27518
+  m_Name: pb_Mesh14080
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -888,7 +888,9 @@ MonoBehaviour:
   render: {fileID: 66021333}
   jumpVelocity: 20
   pikeVelocity: 100
+  dashVelocity: 20
   isGrounded: 1
+  canDash: 1
   rayLength: 2
   rayLengthWall: 1
 --- !u!54 &491524790
@@ -1599,7 +1601,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-30914
+  m_Name: pb_Mesh14050
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
