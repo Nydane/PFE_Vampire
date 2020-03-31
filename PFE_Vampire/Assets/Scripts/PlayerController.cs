@@ -152,6 +152,7 @@ public class PlayerController : MonoBehaviour
                        
         //ce qui fait bouger le perso
         rb.MovePosition(transform.position + new Vector3(speed, 0, 0) * Time.deltaTime);
+
         
         //direction du personnage : on fait rotate le render et non le player en tant que tel
         if (horizontalMovement <=-0.1)
@@ -202,6 +203,6 @@ public class PlayerController : MonoBehaviour
 
         }
     }  
-    
+   
   
 }

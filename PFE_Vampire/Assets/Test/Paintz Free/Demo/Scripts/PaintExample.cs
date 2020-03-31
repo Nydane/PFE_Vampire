@@ -41,7 +41,7 @@ public class PaintExample : MonoBehaviour
 
     private void Update()
     {
-        CameraControl();
+        //CameraControl();
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) brush.splatChannel = 0;
         if (Input.GetKeyDown(KeyCode.Alpha2)) brush.splatChannel = 1;
@@ -127,7 +127,7 @@ public class PaintExample : MonoBehaviour
         GUILayout.EndVertical();
     }
 
-    private void CameraControl()
+   /* private void CameraControl()
     {
         float zoom = Input.GetAxis("Mouse ScrollWheel");
         if (zoom != 0)
@@ -158,5 +158,5 @@ public class PaintExample : MonoBehaviour
             if (Input.GetKey(KeyCode.Q)) { transform.position += transform.up * climbSpeed * Time.deltaTime; }
             if (Input.GetKey(KeyCode.E)) { transform.position -= transform.up * climbSpeed * Time.deltaTime; }
         }
-    }
+    }*/
 }
