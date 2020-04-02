@@ -69,7 +69,7 @@ public class PaintExample : MonoBehaviour
     private Texture2D colorTex;
     private bool ShowMenu = true;
 
-    private void OnGUI()
+   /* private void OnGUI()
     {
         ShowMenu = GUILayout.Toggle(ShowMenu,"");
         if (!ShowMenu) return;
@@ -125,7 +125,7 @@ public class PaintExample : MonoBehaviour
         }
 
         GUILayout.EndVertical();
-    }
+    }*/
 
    /* private void CameraControl()
     {

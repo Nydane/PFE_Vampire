@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    // pour les mouvements
     [SerializeField]
     private float speed = 0;
     [SerializeField]
@@ -14,10 +15,9 @@ public class PlayerController : MonoBehaviour
     private float speedDecr = 0.999f;
     [SerializeField]
     private float stopLimite = 5f;
-
-
     private float mouvementDcr;
 
+    // pour les origines des raycasts
     public Rigidbody rb;
     public GameObject upObj;
     public GameObject downObj;
@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     public GameObject rightObj;
     public GameObject render;
 
+
+    // jump dash et pike
     public float jumpVelocity;
     public float pikeVelocity;
     public float dashVelocity;
@@ -32,21 +34,29 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded = true;
     public bool canDash = true;
 
+    //les raycasts
     Ray downRay;
     Ray rightRay;
     Ray leftRay;
     Ray upRay;
    
-
+    // longueur des raycasts
     public float rayLength = 2f;
     public float rayLengthWall = 2f;
 
-    
+    // Bar de sang
+    public int maxBlood = 100;
+    public int currentBlood;
+    public BloodBar bloodBar; // référence à notre bar de sang
 
     // Start is called before the first frame update
     void Start()
     {
         rb = transform.GetComponent<Rigidbody>();
+
+        // dans le start on set notre sang au max et on dit à notre bloodbar de se mettre au max.
+        currentBlood = maxBlood;
+        bloodBar.SetMaxBlood(maxBlood);
     }
     
     // Update is called once per frame
@@ -184,25 +194,37 @@ public class PlayerController : MonoBehaviour
      
         //Dash
 
-        if (Input.GetKeyDown(KeyCode.E) && canDash == true)
+        if (Input.GetKeyDown(KeyCode.E) && canDash == true && currentBlood >=20)
         {
             
             Debug.Log("dash");
+            
+
             if (horizontalMovement <= -0.1)
             {
                 rb.velocity = Vector3.left * dashVelocity;
+                UseBlood(20);
             }
 
             if (horizontalMovement >= 0.1)
             {
                 rb.velocity = Vector3.right * dashVelocity;
+                UseBlood(20);
             }
 
             canDash = false;
             // else tu dash pas
 
+            
         }
+
     }  
-   
+   void UseBlood (int throwing)
+    {
+        // le sang actuel c'est celui - le throwing et on dit à la bloodbad de se mettre à current blood.
+        currentBlood -= throwing;
+
+        bloodBar.SetBlood(currentBlood);
+    }
   
 }
