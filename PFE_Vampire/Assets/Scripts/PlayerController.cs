@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Mouvements")]
     // pour les mouvements
     [SerializeField]
     private float speed = 0;
@@ -17,20 +18,30 @@ public class PlayerController : MonoBehaviour
     private float stopLimite = 5f;
     private float mouvementDcr;
 
+    [Header("Raycasts")]
     // pour les origines des raycasts
-    public Rigidbody rb;
+    
     public GameObject upObj;
     public GameObject downObj;
     public GameObject leftObj;
     public GameObject rightObj;
+    // longueur des raycasts
+    public float rayLength = 2f;
+    public float rayLengthWall = 2f;
+    public float rayOrbLength = 10f;
+
+    [Header("Pomme")]
     public GameObject render;
+    public Rigidbody rb;
 
-
+    [Header("Abilities")]
     // jump dash et pike
     public float jumpVelocity;
     public float pikeVelocity;
     public float dashVelocity;
+    public float dashOverTime =0f;
 
+    [Header("Bools")]
     public bool isGrounded = true;
     public bool canDash = true;
 
@@ -39,15 +50,22 @@ public class PlayerController : MonoBehaviour
     Ray rightRay;
     Ray leftRay;
     Ray upRay;
-   
-    // longueur des raycasts
-    public float rayLength = 2f;
-    public float rayLengthWall = 2f;
+    Ray orbRightRay;
+    Ray orbLeftRay;
 
+
+    [Header("Blood")]
     // Bar de sang
     public int maxBlood = 100;
     public int currentBlood;
-    public BloodBar bloodBar; // référence à notre bar de sang
+    public BloodBar bloodBar; // référence à notre script de bar de sang poser sur l'objet bar de sang
+
+    [Header("Shoot")]
+    // variables pour tirer
+    public Transform firepoint;
+    public GameObject bulletPrefab;
+
+   
 
     // Start is called before the first frame update
     void Start()
@@ -62,7 +80,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        #region RayCast
         //Système de Raycast pour avoir des informations
         downRay = new Ray(downObj.transform.position, Vector3.down*rayLength);
         Debug.DrawRay(downObj.transform.position, Vector3.down * rayLength);
@@ -75,6 +93,14 @@ public class PlayerController : MonoBehaviour
 
         upRay = new Ray(upObj.transform.position, Vector3.up * rayLength);
         Debug.DrawRay(upObj.transform.position, Vector3.up * rayLength);
+
+        orbRightRay = new Ray(rightObj.transform.position, Vector3.right * rayOrbLength);
+        Debug.DrawRay(rightObj.transform.position, Vector3.right * rayOrbLength);
+
+        orbLeftRay = new Ray(leftObj.transform.position, Vector3.left * rayOrbLength);
+        Debug.DrawRay(leftObj.transform.position, Vector3.left * rayOrbLength);
+
+        #endregion
 
 
 
@@ -90,9 +116,12 @@ public class PlayerController : MonoBehaviour
 
         else isGrounded = false;
 
+        
+    
+        
         //Reset Jump && dash quand le Raycast Touche un wall
 
-    if (Physics.Raycast (rightRay, out RaycastHit wallInfo, rayLengthWall))
+        if (Physics.Raycast (rightRay, out RaycastHit wallInfo, rayLengthWall))
         {
             
             Debug.Log(wallInfo.collider.tag);
@@ -112,6 +141,36 @@ public class PlayerController : MonoBehaviour
                 canDash = true;
             //speed = 5; // Quand raycast touche un mur speed = 0 pour pas passer à travers
         }
+
+        // bloodOrb Ray player absorb
+        if (Physics.Raycast(orbRightRay, out RaycastHit orbRightInfo, rayOrbLength))
+        {
+            Debug.Log(orbRightInfo.collider.tag);
+            if (orbRightInfo.collider.tag == "BloodOrb" && Input.GetButton("Fire2"))
+            {
+                BloodOrbMove(orbRightInfo.collider.GetComponent<BloodOrb>());
+            }
+
+
+        }
+
+        if (Physics.Raycast(orbLeftRay, out RaycastHit orbLeftInfo, rayOrbLength))
+        {
+            Debug.Log(orbLeftInfo.collider.tag);
+            if (orbLeftInfo.collider.tag == "BloodOrb" && Input.GetButton("Fire2"))
+            {
+                BloodOrbMove(orbLeftInfo.collider.GetComponent<BloodOrb>());
+            }
+
+
+        }
+        //PlayerShoot
+        if (Input.GetButtonDown("Fire1") && currentBlood >= 20 )
+        {
+            Shoot();
+            UseBlood(20);
+        }
+
 
         
 
@@ -185,11 +244,12 @@ public class PlayerController : MonoBehaviour
         }
 
         //Piqué
-        if (Input.GetKeyDown(KeyCode.A) && isGrounded == false)
+        if (Input.GetKeyDown(KeyCode.A) && isGrounded == false && currentBlood >= 20)
         {
             rb.velocity = Vector3.down * pikeVelocity;
             Debug.Log("piqué");
-            
+            UseBlood(20);
+
         }
      
         //Dash
@@ -202,12 +262,14 @@ public class PlayerController : MonoBehaviour
 
             if (horizontalMovement <= -0.1)
             {
+                StartCoroutine(SetVelocityDash(dashOverTime));
                 rb.velocity = Vector3.left * dashVelocity;
                 UseBlood(20);
             }
 
             if (horizontalMovement >= 0.1)
             {
+                StartCoroutine(SetVelocityDash(dashOverTime));
                 rb.velocity = Vector3.right * dashVelocity;
                 UseBlood(20);
             }
@@ -219,12 +281,55 @@ public class PlayerController : MonoBehaviour
         }
 
     }  
-   void UseBlood (int throwing)
+   public void UseBlood (int throwing)
     {
         // le sang actuel c'est celui - le throwing et on dit à la bloodbad de se mettre à current blood.
         currentBlood -= throwing;
 
         bloodBar.SetBlood(currentBlood);
     }
-  
+
+    public void GetBlood(int absorbing)
+    {
+        currentBlood += absorbing;
+
+        // si jamais on dépasse le max on  set au max a nouveau.
+        if (currentBlood > maxBlood)
+        {
+            currentBlood = maxBlood;
+        }
+
+        bloodBar.SetBlood(currentBlood);
+
+    }
+
+    void Shoot()
+    {
+        // Shooting logic
+        Instantiate(bulletPrefab, firepoint.position, firepoint.rotation);
+    }
+
+     public void BloodOrbMove (BloodOrb orb)
+    {
+       // rb.MovePosition(transform.position + new Vector3(movingSpeed,0,0) * Time.deltaTime);
+        orb.rb.MovePosition(orb.transform.position + orb.direction * orb.movingSpeed * Time.deltaTime);
+        
+    }
+
+    public IEnumerator SetVelocityDash (float TimeDash)
+    {
+        float time = TimeDash;
+        while (time >0)
+        {
+            Vector3 vel = rb.velocity;
+            rb.velocity = new Vector3(vel.x, 0, vel.z);
+            time -= Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        
+
+
+
+    }
 }
+
