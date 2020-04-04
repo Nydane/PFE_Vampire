@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     [Header("Pomme")]
     public GameObject render;
     public Rigidbody rb;
+    public Animator animator;
 
     [Header("Abilities")]
     // jump dash et pike
@@ -75,11 +76,13 @@ public class PlayerController : MonoBehaviour
         // dans le start on set notre sang au max et on dit à notre bloodbar de se mettre au max.
         currentBlood = maxBlood;
         bloodBar.SetMaxBlood(maxBlood);
+        
     }
     
     // Update is called once per frame
     void Update()
     {
+
         #region RayCast
         //Système de Raycast pour avoir des informations
         downRay = new Ray(downObj.transform.position, Vector3.down*rayLength);
@@ -227,20 +230,32 @@ public class PlayerController : MonoBehaviour
         if (horizontalMovement <=-0.1)
         {
             render.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            animator.Play("Run");
+
         }
         if (horizontalMovement >= 0.1)
         {
-            render.transform.rotation = Quaternion.Euler(0f, 0f, 0f); 
+            render.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            animator.Play("Run");
+
 
         }
 
-       
+        if (horizontalMovement == 0)
+        {
+            animator.Play("Idle");
+        }
+
+
         //jump du personnage
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
         {
             rb.velocity = Vector3.up * jumpVelocity;
             Debug.Log("jump");
-           
+            animator.Play("Jump");
+
+            //isGrounded = false;
+
         }
 
         //Piqué

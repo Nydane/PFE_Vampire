@@ -1,0 +1,384 @@
+fileFormatVersion: 2
+guid: 62b7c49414b6d1f43bb951c52f558f6a
+ModelImporter:
+  serializedVersion: 19300
+  internalIDToNameTable:
+  - first:
+      74: 1827226128182048838
+    second: Idle
+  - first:
+      74: 5539831331247536789
+    second: Jump
+  - first:
+      74: 6480610267109901665
+    second: Landing
+  - first:
+      74: 2450780417096620964
+    second: Run
+  externalObjects: {}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 1
+      lastFrame: 32
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: Jump
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 33
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: Landing
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 41
+      lastFrame: 48
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: Run
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 49
+      lastFrame: 66
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: Character_Anim(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: jam_RIG_ref:Group
+      parentName: Character_Anim(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: jam_RIG_ref:Main
+      parentName: jam_RIG_ref:Group
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: jam_RIG_ref:DeformationSystem
+      parentName: jam_RIG_ref:Main
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: jam_RIG_ref:Root_M
+      parentName: jam_RIG_ref:DeformationSystem
+      position: {x: -1.9709482e-17, y: 0.6975616, z: -0.0039680107}
+      rotation: {x: 0.50439376, y: -0.4955673, z: -0.50439376, w: 0.4955673}
+      scale: {x: 0.9999999, y: 0.9999999, z: 1}
+    - name: jam_RIG_ref:Hip_R
+      parentName: jam_RIG_ref:Root_M
+      position: {x: 0.019928526, y: 0.0030614429, z: -0.16101085}
+      rotation: {x: 0.031651035, y: 0.99948657, z: -0.0049924552, w: -0.00006209314}
+      scale: {x: 1.0000001, y: 1.0000007, z: 1}
+    - name: jam_RIG_ref:Knee_R
+      parentName: jam_RIG_ref:Hip_R
+      position: {x: -0.29928, y: 3.907985e-16, z: 2.5224266e-15}
+      rotation: {x: -0, y: -0, z: 0.0027053952, w: 0.9999964}
+      scale: {x: 1.0000012, y: 1.0000002, z: 1.0000012}
+    - name: jam_RIG_ref:Spine1_M
+      parentName: jam_RIG_ref:Root_M
+      position: {x: -0.224787, y: -2.4424906e-17, z: 2.8464923e-17}
+      rotation: {x: -0, y: -0, z: -0.009800316, w: 0.999952}
+      scale: {x: 1.0000004, y: 1.0000004, z: 1}
+    - name: jam_RIG_ref:Chest_M
+      parentName: jam_RIG_ref:Spine1_M
+      position: {x: -0.27813977, y: 1.5099033e-16, z: -1.6061762e-16}
+      rotation: {x: 0.000000029802319, y: 0.000000029802319, z: -0.0068328967, w: 0.99997663}
+      scale: {x: 1.0000005, y: 1.0000005, z: 1.0000007}
+    - name: jam_RIG_ref:Scapula_R
+      parentName: jam_RIG_ref:Chest_M
+      position: {x: -0.044327572, y: 0.035596624, z: -0.053456444}
+      rotation: {x: -0.017941553, y: 0.7069487, z: -0.018160045, w: -0.70680404}
+      scale: {x: 1.0000006, y: 0.9999998, z: 0.99999946}
+    - name: jam_RIG_ref:Shoulder_R
+      parentName: jam_RIG_ref:Scapula_R
+      position: {x: -0.07215, y: -5.5893068e-14, z: -6.9633185e-15}
+      rotation: {x: 0.00007677076, y: -0.14538595, z: -0.00011980251, w: 0.989375}
+      scale: {x: 1.0000006, y: 1.0000002, z: 0.9999997}
+    - name: jam_RIG_ref:ShoulderPart1_R
+      parentName: jam_RIG_ref:Shoulder_R
+      position: {x: -0.09864333, y: -6.1701756e-14, z: -4.6185276e-15}
+      rotation: {x: -0.000000035332047, y: 0.10949686, z: -0.00003780641, w: 0.9939872}
+      scale: {x: 0.9999997, y: 0.9999997, z: 0.9999997}
+    - name: jam_RIG_ref:ShoulderPart2_R
+      parentName: jam_RIG_ref:ShoulderPart1_R
+      position: {x: -0.09864333, y: -6.169287e-14, z: -4.5474734e-15}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000007, y: 1.0000004, z: 1.0000006}
+    - name: jam_RIG_ref:Elbow_R
+      parentName: jam_RIG_ref:ShoulderPart2_R
+      position: {x: -0.09864333, y: -6.169287e-14, z: -4.6185276e-15}
+      rotation: {x: 0.000000029802319, y: 0.00000043213362, z: -0.024850916, w: 0.9996911}
+      scale: {x: 0.9999997, y: 1.0000004, z: 0.9999997}
+    - name: jam_RIG_ref:Neck_M
+      parentName: jam_RIG_ref:Chest_M
+      position: {x: -0.116765566, y: 4.7073454e-16, z: 4.2845947e-16}
+      rotation: {x: -0, y: -0, z: 0.020904526, w: -0.99978155}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: jam_RIG_ref:Head_M
+      parentName: jam_RIG_ref:Neck_M
+      position: {x: -0.15550715, y: 5.506706e-16, z: -1.0143314e-16}
+      rotation: {x: 1.1158584e-10, y: 0.000000057204876, z: -0.08996409, w: -0.99594504}
+      scale: {x: 1.0000011, y: 1.0000011, z: 1.0000018}
+    - name: jam_RIG_ref:Scapula_L
+      parentName: jam_RIG_ref:Chest_M
+      position: {x: -0.044327572, y: 0.035596624, z: 0.053456444}
+      rotation: {x: 0.7069487, y: 0.017941536, z: 0.706804, w: -0.018159965}
+      scale: {x: 1.0000012, y: 1.0000006, z: 0.99999994}
+    - name: jam_RIG_ref:Shoulder_L
+      parentName: jam_RIG_ref:Scapula_L
+      position: {x: 0.07215, y: 9.867662e-14, z: 6.3948845e-15}
+      rotation: {x: 0.000076890916, y: -0.14538614, z: -0.00011975969, w: 0.989375}
+      scale: {x: 1.0000019, y: 1.0000007, z: 1.0000001}
+    - name: jam_RIG_ref:ShoulderPart1_L
+      parentName: jam_RIG_ref:Shoulder_L
+      position: {x: 0.09864333, y: 3.0100366e-14, z: 4.5474734e-15}
+      rotation: {x: 0.000000016400007, y: 0.10949732, z: -0.000037824255, w: 0.99398714}
+      scale: {x: 1.0000005, y: 1.0000004, z: 1.0000006}
+    - name: jam_RIG_ref:ShoulderPart2_L
+      parentName: jam_RIG_ref:ShoulderPart1_L
+      position: {x: 0.09864333, y: 3.0082602e-14, z: 4.8316907e-15}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000007, y: 1.0000004, z: 1.0000005}
+    - name: jam_RIG_ref:Elbow_L
+      parentName: jam_RIG_ref:ShoulderPart2_L
+      position: {x: 0.09864333, y: 3.0100366e-14, z: 4.760636e-15}
+      rotation: {x: 0.000000074505806, y: 0.0000002682209, z: -0.024850965, w: 0.9996912}
+      scale: {x: 0.999999, y: 0.99999934, z: 0.9999991}
+    - name: jam_RIG_ref:Hip_L
+      parentName: jam_RIG_ref:Root_M
+      position: {x: 0.019928526, y: 0.0030614429, z: 0.16101085}
+      rotation: {x: -0.99948657, y: 0.031651143, z: -0.00006204844, w: 0.0049925153}
+      scale: {x: 1.0000001, y: 1.0000006, z: 1.0000002}
+    - name: jam_RIG_ref:Knee_L
+      parentName: jam_RIG_ref:Hip_L
+      position: {x: 0.29928, y: -4.0856205e-16, z: -2.0605739e-15}
+      rotation: {x: -0.000000059604645, y: 0.000000059604645, z: 0.002705261, w: 0.9999964}
+      scale: {x: 1.0000008, y: 1.0000002, z: 1.0000008}
+    - name: jam_RIG_ref:Geometry
+      parentName: jam_RIG_ref:Group
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: jam_RIG_ref:chale
+      parentName: jam_RIG_ref:Geometry
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: jam_RIG_ref:ear
+      parentName: jam_RIG_ref:Geometry
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: jam_RIG_ref:cape
+      parentName: jam_RIG_ref:Geometry
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: jam_RIG_ref:body
+      parentName: jam_RIG_ref:Geometry
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: jam_RIG_ref:hair
+      parentName: jam_RIG_ref:Geometry
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: jam_RIG_ref:mask
+      parentName: jam_RIG_ref:Geometry
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: jam_RIG_ref:dress_clusterBPM_grp
+      parentName: Character_Anim(Clone)
+      position: {x: -0, y: 0.7406217, z: -0.0651905}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: jam_RIG_ref:dressCluster
+      parentName: jam_RIG_ref:dress_clusterBPM_grp
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
