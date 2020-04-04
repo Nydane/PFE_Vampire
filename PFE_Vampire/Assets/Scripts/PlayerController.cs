@@ -40,11 +40,16 @@ public class PlayerController : MonoBehaviour
     public float jumpVelocity;
     public float pikeVelocity;
     public float dashVelocity;
+    public float climbVelocity = 5f;
+    public float slideVelocity = -10f;
     public float dashOverTime =0f;
+    public float climbOverTime = 2f;
+    public float slideOverTime = 10f;
 
     [Header("Bools")]
     public bool isGrounded = true;
     public bool canDash = true;
+    public bool canClimb = true;
 
     //les raycasts
     Ray downRay;
@@ -107,13 +112,18 @@ public class PlayerController : MonoBehaviour
 
 
 
-        //Reset Jump & dash quand le Raycast touche le sol
-        if (Physics.Raycast (downRay,out RaycastHit groundInfo,rayLength))
+        //Reset Jump & dash & grimp quand le Raycast touche le sol
+        if (Physics.Raycast(downRay, out RaycastHit groundInfo, rayLength))
         {
             Debug.Log(groundInfo.collider.tag);
             if (groundInfo.collider.tag == "Ground")
+            { 
                 isGrounded = true;
-                 canDash = true;
+                canDash = true;
+                canClimb = true;
+                slideOverTime = 10f;
+                climbOverTime = 3f;
+           }
 
         }
 
@@ -122,7 +132,7 @@ public class PlayerController : MonoBehaviour
         
     
         
-        //Reset Jump && dash quand le Raycast Touche un wall
+        //Reset Jump && dash && grimper quand le Raycast Touche un wall
 
         if (Physics.Raycast (rightRay, out RaycastHit wallInfo, rayLengthWall))
         {
@@ -132,6 +142,22 @@ public class PlayerController : MonoBehaviour
             {
                 isGrounded = true;
                 canDash = true;
+               
+              
+                // climbing quand le raycast touche à droite
+                if (Input.GetKey(KeyCode.Z) && climbOverTime >0 && canClimb == true)
+                {
+                    Climbing(climbOverTime);
+                    climbOverTime -= Time.deltaTime;
+                    
+                }
+
+                if (Input.GetKey(KeyCode.Z) && climbOverTime <= 0)
+                {
+                    Sliding(slideOverTime);
+                    canClimb = false;
+                }
+
                 //speed = 5; // Quand raycast touche un mur speed = 0 pour pas passer à travers
             }
         }
@@ -140,8 +166,26 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log(wallInfoLeft.collider.tag);
             if (wallInfoLeft.collider.tag == "Ground")
+            {
                 isGrounded = true;
                 canDash = true;
+
+                // climbing quand le raycast touche à gauche
+                if (Input.GetKey(KeyCode.Z) && climbOverTime > 0 && canClimb == true)
+                {
+                    Climbing(climbOverTime);
+                    climbOverTime -= Time.deltaTime;
+
+                }
+
+                if (Input.GetKey(KeyCode.Z) && climbOverTime <= 0)
+                {
+                    Sliding(slideOverTime);
+                    canClimb = false;
+                }
+            }
+
+
             //speed = 5; // Quand raycast touche un mur speed = 0 pour pas passer à travers
         }
 
@@ -266,7 +310,8 @@ public class PlayerController : MonoBehaviour
             UseBlood(20);
 
         }
-     
+
+        
         //Dash
 
         if (Input.GetKeyDown(KeyCode.E) && canDash == true && currentBlood >=20)
@@ -295,7 +340,11 @@ public class PlayerController : MonoBehaviour
             
         }
 
+        
+
     }  
+
+    // fonction pour jeter le sang
    public void UseBlood (int throwing)
     {
         // le sang actuel c'est celui - le throwing et on dit à la bloodbad de se mettre à current blood.
@@ -304,6 +353,7 @@ public class PlayerController : MonoBehaviour
         bloodBar.SetBlood(currentBlood);
     }
 
+    // fonction pour absorber le sang
     public void GetBlood(int absorbing)
     {
         currentBlood += absorbing;
@@ -318,6 +368,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    // fonction pour tirer les boulettes
     void Shoot()
     {
         // Shooting logic
@@ -331,20 +382,38 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    public IEnumerator SetVelocityDash (float TimeDash)
+    // fonction pour grimper
+    void Climbing(float timeClimb)
+    {
+        float Ctime = timeClimb;
+        if (Ctime > 0)
+         {
+            rb.velocity = new Vector3(rb.velocity.x, climbVelocity, rb.velocity.z);
+            
+         }
+
+
+    }
+
+    void Sliding (float slide)
+    {
+        rb.velocity = new Vector3(rb.velocity.x, slideVelocity, rb.velocity.z);
+
+    }
+
+
+    public IEnumerator SetVelocityDash(float TimeDash)
     {
         float time = TimeDash;
-        while (time >0)
+        while (time > 0)
         {
             Vector3 vel = rb.velocity;
             rb.velocity = new Vector3(vel.x, 0, vel.z);
             time -= Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
-        
-
-
 
     }
+
 }
 

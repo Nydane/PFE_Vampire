@@ -3010,9 +3010,14 @@ MonoBehaviour:
   jumpVelocity: 20
   pikeVelocity: 100
   dashVelocity: 20
+  climbVelocity: 5
+  slideVelocity: -10
   dashOverTime: 0.3
+  climbOverTime: 3
+  slideOverTime: 2
   isGrounded: 1
   canDash: 1
+  canClimb: 1
   maxBlood: 500
   currentBlood: 0
   bloodBar: {fileID: 1563098465}
@@ -4901,7 +4906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a47f60d46d40a49ba5f0923137752d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetFocus: {fileID: 0}
+  targetFocus: {fileID: 491524788}
   lerpPower: 0.5
   distance: 10
   verticalOffset: 3
@@ -9541,7 +9546,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh13996
+  m_Name: pb_Mesh13956
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
