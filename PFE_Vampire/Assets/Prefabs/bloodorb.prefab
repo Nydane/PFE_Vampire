@@ -98,7 +98,13 @@ MonoBehaviour:
   playerController: {fileID: 0}
   rb: {fileID: 0}
   playerTransform: {fileID: 0}
+  direction: {x: 0, y: 0, z: 0}
   movingSpeed: 20
+  mRed: {fileID: 2100000, guid: 6d860d489868c824b8506cf2816b6e96, type: 2}
+  mBlue: {fileID: 2100000, guid: bb139b3b65d7f074b9e68bf4960cf210, type: 2}
+  bloodValue: 20
+  isRed: 1
+  isBlue: 0
 --- !u!135 &7618644538129076692
 SphereCollider:
   m_ObjectHideFlags: 0

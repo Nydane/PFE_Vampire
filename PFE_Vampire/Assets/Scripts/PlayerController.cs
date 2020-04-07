@@ -7,9 +7,9 @@ public class PlayerController : MonoBehaviour
     [Header("Mouvements")]
     // pour les mouvements
     [SerializeField]
-    private float speed = 0;
+    public float speed = 0;
     [SerializeField]
-    private float maxSpeed = 1;
+    public float maxSpeed = 1;
     [SerializeField]
     private float speedIncr = 1;
     [SerializeField]
@@ -59,6 +59,8 @@ public class PlayerController : MonoBehaviour
     Ray orbRightRay;
     Ray orbLeftRay;
 
+    [Header("SizeObject")]
+    public Sizescript sizescript;
 
     [Header("Blood")]
     // Bar de sang
@@ -125,12 +127,22 @@ public class PlayerController : MonoBehaviour
                 climbOverTime = 3f;
            }
 
+            // Permet de jump et reset nos variables même sur un BigObject /ne permet pas de grimper un Bigobject
+            if (groundInfo.collider.tag == "BigObject")
+            {
+                isGrounded = true;
+                canDash = true;
+                canClimb = true;
+                slideOverTime = 10f;
+                climbOverTime = 3f;
+            }
+
         }
 
         else isGrounded = false;
 
         
-    
+
         
         //Reset Jump && dash && grimper quand le Raycast Touche un wall
 
@@ -183,13 +195,17 @@ public class PlayerController : MonoBehaviour
                     Sliding(slideOverTime);
                     canClimb = false;
                 }
+
+                
+
+
             }
 
 
             //speed = 5; // Quand raycast touche un mur speed = 0 pour pas passer à travers
         }
 
-        // bloodOrb Ray player absorb
+        // right click rays Ray player absorb
         if (Physics.Raycast(orbRightRay, out RaycastHit orbRightInfo, rayOrbLength))
         {
             Debug.Log(orbRightInfo.collider.tag);
@@ -198,8 +214,18 @@ public class PlayerController : MonoBehaviour
                 BloodOrbMove(orbRightInfo.collider.GetComponent<BloodOrb>());
             }
 
+            // si objet bigsize et clique droit on small l'objet
+            if (orbRightInfo.collider.tag == "BigObject" && Input.GetButton("Fire2"))
+            {
+                
+                sizescript.getBig = false;
+                sizescript.getSmall = true;
+                GetBlood(20);
+            }
+
 
         }
+        // right click rays Ray player absorb
 
         if (Physics.Raycast(orbLeftRay, out RaycastHit orbLeftInfo, rayOrbLength))
         {
@@ -209,6 +235,15 @@ public class PlayerController : MonoBehaviour
                 BloodOrbMove(orbLeftInfo.collider.GetComponent<BloodOrb>());
             }
 
+            // si objet bigsize et clique droit on small l'objet
+
+            if (orbLeftInfo.collider.tag == "BigObject" && Input.GetButton("Fire2"))
+            {
+                
+                sizescript.getBig = false;
+                sizescript.getSmall = true;
+                GetBlood(20);
+            }
 
         }
         //PlayerShoot
@@ -227,7 +262,7 @@ public class PlayerController : MonoBehaviour
 
 
         // incrementation et décrementation de vitesse
-        if (horizontalMovement > 0)
+        if (horizontalMovement >0)
         {
             if (speed < 0) speed = 0;
 
@@ -241,7 +276,7 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        else if (horizontalMovement < 0)
+        else if (horizontalMovement <0)
         {
             if (speed > 0) speed = 0;
 
@@ -256,6 +291,7 @@ public class PlayerController : MonoBehaviour
             }
 
         }
+        // speed decrease
         else 
         {
             speed *= speedDecr;   // speedDecr entre 0 et 1
@@ -395,13 +431,14 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    // fonction pour slide 
     void Sliding (float slide)
     {
         rb.velocity = new Vector3(rb.velocity.x, slideVelocity, rb.velocity.z);
 
     }
 
-
+    // coroutine pour fixe le transform lors du dash
     public IEnumerator SetVelocityDash(float TimeDash)
     {
         float time = TimeDash;

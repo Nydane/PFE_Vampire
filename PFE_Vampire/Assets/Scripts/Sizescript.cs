@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class Sizescript : MonoBehaviour
 {
+    [Header("Pomme")]
     public GameObject cube;
     public GameObject player;
+
+    [Header("Size")]
+    public Vector3 smallSize;
+    public Vector3 bigSize;
+
+    [Header("Bools")]
     public bool getBig = true;
     public bool getSmall = false;
     public bool isMoving = false;
@@ -15,22 +22,32 @@ public class Sizescript : MonoBehaviour
     {
     }
 
-// Update is called once per frame
-void Update()
-    {
-
-    }
-    private void OnTriggerEnter(Collider other)
+    // Update is called once per frame
+    void Update()
     {
         if (getBig == true)
         {
-            cube.gameObject.transform.localScale = new Vector3(5, 5, 5);
+            cube.gameObject.transform.localScale = bigSize;
+            getSmall = false;
         }
-        else if (getSmall == true)
-        {
-            cube.gameObject.transform.localScale = new Vector3(1, 1, 1);
 
+        if (getSmall == true)
+        {
+            cube.gameObject.transform.localScale = smallSize;
+            getBig = false;
         }
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        getBig = true;
+
+        /*else if (getSmall == true)
+        {
+            cube.gameObject.transform.localScale = smallSize;
+
+        }*/
 
         if (other.gameObject == player && isMoving == true)
         {
