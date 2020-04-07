@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     [Header("Pomme")]
     public GameObject render;
     public Rigidbody rb;
+    public Collider col;
     public Animator animator;
 
     [Header("Abilities")]
@@ -45,11 +46,14 @@ public class PlayerController : MonoBehaviour
     public float dashOverTime =0f;
     public float climbOverTime = 2f;
     public float slideOverTime = 10f;
+    public Vector3 normalScale;
+    public Vector3 smallScale;
 
     [Header("Bools")]
     public bool isGrounded = true;
     public bool canDash = true;
     public bool canClimb = true;
+    public bool isNormal = true;
 
     //les raycasts
     Ray downRay;
@@ -79,6 +83,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = transform.GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
 
         // dans le start on set notre sang au max et on dit à notre bloodbar de se mettre au max.
         currentBlood = maxBlood;
@@ -139,29 +144,26 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        else isGrounded = false;
+       // else isGrounded = false;
 
-        
 
-        
-        //Reset Jump && dash && grimper quand le Raycast Touche un wall
 
-        if (Physics.Raycast (rightRay, out RaycastHit wallInfo, rayLengthWall))
+        if (Physics.Raycast(rightRay, out RaycastHit wallInfo, rayLengthWall))
         {
-            
+            //Reset Jump && dash && grimper quand le Raycast Touche un wall
             Debug.Log(wallInfo.collider.tag);
             if (wallInfo.collider.tag == "Ground")
             {
                 isGrounded = true;
                 canDash = true;
-               
-              
+
+
                 // climbing quand le raycast touche à droite
-                if (Input.GetKey(KeyCode.Z) && climbOverTime >0 && canClimb == true)
+                if (Input.GetKey(KeyCode.Z) && climbOverTime > 0 && canClimb == true)
                 {
                     Climbing(climbOverTime);
                     climbOverTime -= Time.deltaTime;
-                    
+
                 }
 
                 if (Input.GetKey(KeyCode.Z) && climbOverTime <= 0)
@@ -172,6 +174,8 @@ public class PlayerController : MonoBehaviour
 
                 //speed = 5; // Quand raycast touche un mur speed = 0 pour pas passer à travers
             }
+
+           
         }
 
         if (Physics.Raycast(leftRay, out RaycastHit wallInfoLeft, rayLengthWall))
@@ -333,13 +337,12 @@ public class PlayerController : MonoBehaviour
             rb.velocity = Vector3.up * jumpVelocity;
             Debug.Log("jump");
             animator.Play("Jump");
-
-            //isGrounded = false;
+            isGrounded = false;
 
         }
 
         //Piqué
-        if (Input.GetKeyDown(KeyCode.A) && isGrounded == false && currentBlood >= 20)
+        if (Input.GetKeyDown(KeyCode.A)  && currentBlood >= 20)
         {
             rb.velocity = Vector3.down * pikeVelocity;
             Debug.Log("piqué");
@@ -378,10 +381,26 @@ public class PlayerController : MonoBehaviour
 
         
 
+        // reduction scale personnage touche R -- principe de surchage sur une même touche
+        if (Input.GetKeyDown(KeyCode.R) && isNormal == true)
+        {
+            Debug.Log("SupersmallSouris");
+            transform.localScale = smallScale;
+            isNormal = false;
+
+        }
+        else if (Input.GetKeyDown(KeyCode.R) && isNormal == false)
+        {
+            Debug.Log("SuperSouris");
+            transform.localScale = normalScale;
+            isNormal = true;
+        }
+
+
     }  
 
     // fonction pour jeter le sang
-   public void UseBlood (int throwing)
+    public void UseBlood (int throwing)
     {
         // le sang actuel c'est celui - le throwing et on dit à la bloodbad de se mettre à current blood.
         currentBlood -= throwing;

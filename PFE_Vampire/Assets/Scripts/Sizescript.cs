@@ -8,6 +8,11 @@ public class Sizescript : MonoBehaviour
     public GameObject cube;
     public GameObject player;
 
+    [Header ("Colors")]
+    public Renderer rend;
+    public Material mRed;
+    public Material originalColor;
+
     [Header("Size")]
     public Vector3 smallSize;
     public Vector3 bigSize;
@@ -20,6 +25,8 @@ public class Sizescript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rend = GetComponent<Renderer>();
+
     }
 
     // Update is called once per frame
@@ -29,12 +36,14 @@ public class Sizescript : MonoBehaviour
         {
             cube.gameObject.transform.localScale = bigSize;
             getSmall = false;
+            rend.material = mRed;
         }
 
         if (getSmall == true)
         {
             cube.gameObject.transform.localScale = smallSize;
             getBig = false;
+            rend.material = originalColor;
         }
 
     }
