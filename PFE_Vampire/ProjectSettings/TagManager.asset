@@ -9,6 +9,8 @@ TagManager:
   - BloodOrb
   - BigObject
   - BloodWall
+  - Blood
+  - Button
   layers:
   - Default
   - TransparentFX

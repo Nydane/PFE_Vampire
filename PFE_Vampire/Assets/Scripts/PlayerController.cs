@@ -6,9 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Mouvements")]
     // pour les mouvements
-    [SerializeField]
+    
     public float speed = 0;
-    [SerializeField]
     public float maxSpeed = 1;
     [SerializeField]
     private float speedIncr = 1;
@@ -63,8 +62,8 @@ public class PlayerController : MonoBehaviour
     Ray orbRightRay;
     Ray orbLeftRay;
 
-    [Header("SizeObject")]
-    public Sizescript sizescript;
+    
+    private Sizescript sizescript;
 
     [Header("Blood")]
     // Bar de sang
@@ -209,47 +208,93 @@ public class PlayerController : MonoBehaviour
             //speed = 5; // Quand raycast touche un mur speed = 0 pour pas passer à travers
         }
 
-        // right click rays Ray player absorb
-        if (Physics.Raycast(orbRightRay, out RaycastHit orbRightInfo, rayOrbLength))
+        // on check si le joueur fait un clique droit puis on raycast quand le clique droit est down pour check tag et activer fonction de Button ou big object
+        if (Input.GetButtonDown("Fire2"))
         {
-            Debug.Log(orbRightInfo.collider.tag);
-            if (orbRightInfo.collider.tag == "BloodOrb" && Input.GetButton("Fire2"))
+            if (Physics.Raycast(orbRightRay, out RaycastHit orbRightInfo, rayOrbLength))
             {
-                BloodOrbMove(orbRightInfo.collider.GetComponent<BloodOrb>());
+                Debug.Log(orbRightInfo.collider.tag);
+                if (orbRightInfo.collider.tag == "Button")
+                {
+                    Button currentBTN = orbRightInfo.collider.GetComponent<Button>();
+                    if (currentBTN.isOn)
+                    {
+                        GetBlood(20);
+                    }
+                    currentBTN.SetOff();
+                    
+                }
+
+                // si objet bigsize et clique droit on small l'objet
+                if (orbRightInfo.collider.tag == "BigObject" && Input.GetButton("Fire2"))
+                {
+                    // on va chercher le component script quand le raycast touche un bigobject
+                    sizescript = orbRightInfo.collider.GetComponent<Sizescript>();
+                    sizescript.SetSizeSmall();
+                    if (sizescript.hasBlood)
+                    {
+                        GetBlood(20);
+                    }
+
+                }
             }
 
-            // si objet bigsize et clique droit on small l'objet
-            if (orbRightInfo.collider.tag == "BigObject" && Input.GetButton("Fire2"))
+            if (Physics.Raycast(orbLeftRay, out RaycastHit orbLeftInfo, rayOrbLength))
             {
-                
-                sizescript.getBig = false;
-                sizescript.getSmall = true;
-                GetBlood(20);
+                Debug.Log(orbLeftInfo.collider.tag);
+                // si objet bigsize et clique droit on small l'objet avec raycast left
+
+                if (orbLeftInfo.collider.tag == "BigObject")
+                {
+                    sizescript = orbLeftInfo.collider.GetComponent<Sizescript>();
+                    sizescript.SetSizeSmall();
+                    if (sizescript.hasBlood)
+                    {
+                        GetBlood(20);
+                    }
+                }
+
+
+                if (orbLeftInfo.collider.tag == "Button")
+                {
+                    Button currentBTN = orbLeftInfo.collider.GetComponent<Button>();
+                    
+                    if (currentBTN.isOn)
+                    {
+                        GetBlood(20);
+                    }
+                    currentBTN.SetOff();
+                    
+                }
+
             }
-
-
         }
-        // right click rays Ray player absorb
+        // on check si le joueur fait un clique droit puis on raycast quand le clique droitest use pour check tag et activer fonction de  bloord orb a toutes les frames
 
-        if (Physics.Raycast(orbLeftRay, out RaycastHit orbLeftInfo, rayOrbLength))
+        if (Input.GetButton("Fire2"))
         {
-            Debug.Log(orbLeftInfo.collider.tag);
-            if (orbLeftInfo.collider.tag == "BloodOrb" && Input.GetButton("Fire2"))
+            if (Physics.Raycast(orbRightRay, out RaycastHit orbRightInfo, rayOrbLength))
             {
-                BloodOrbMove(orbLeftInfo.collider.GetComponent<BloodOrb>());
+                Debug.Log(orbRightInfo.collider.tag);
+                if (orbRightInfo.collider.tag == "BloodOrb")
+                {
+                    BloodOrbMove(orbRightInfo.collider.GetComponent<BloodOrb>());
+                }
             }
 
-            // si objet bigsize et clique droit on small l'objet
-
-            if (orbLeftInfo.collider.tag == "BigObject" && Input.GetButton("Fire2"))
+            if (Physics.Raycast(orbLeftRay, out RaycastHit orbLeftInfo, rayOrbLength))
             {
-                
-                sizescript.getBig = false;
-                sizescript.getSmall = true;
-                GetBlood(20);
-            }
+                Debug.Log(orbLeftInfo.collider.tag);
+                if (orbLeftInfo.collider.tag == "BloodOrb")
+                {
+                    BloodOrbMove(orbLeftInfo.collider.GetComponent<BloodOrb>());
+                }
 
+                // si objet bigsize et clique droit on small l'objet avec raycast left
+
+            }
         }
+
         //PlayerShoot
         if (Input.GetButtonDown("Fire1") && currentBlood >= 20 )
         {
@@ -435,6 +480,12 @@ public class PlayerController : MonoBehaviour
        // rb.MovePosition(transform.position + new Vector3(movingSpeed,0,0) * Time.deltaTime);
         orb.rb.MovePosition(orb.transform.position + orb.direction * orb.movingSpeed * Time.deltaTime);
         
+    }
+
+    public void GiveMaxBlood ()
+    {
+        currentBlood = maxBlood;
+        bloodBar.SetBlood(currentBlood);
     }
 
     // fonction pour grimper

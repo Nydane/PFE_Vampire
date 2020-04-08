@@ -18,9 +18,10 @@ public class Sizescript : MonoBehaviour
     public Vector3 bigSize;
 
     [Header("Bools")]
-    public bool getBig = true;
-    public bool getSmall = false;
+    private bool getBig = true;
+    private bool getSmall = false;
     public bool isMoving = false;
+    public bool hasBlood = false;
 
     // Start is called before the first frame update
     void Start()
@@ -52,12 +53,7 @@ public class Sizescript : MonoBehaviour
     {
         getBig = true;
 
-        /*else if (getSmall == true)
-        {
-            cube.gameObject.transform.localScale = smallSize;
-
-        }*/
-
+        // script pas use pour l'instant
         if (other.gameObject == player && isMoving == true)
         {
             player.transform.parent = transform; // lorsque la plateforme se déplace, met le joueur en parent pour que les deux bougent ensemble
@@ -74,5 +70,17 @@ public class Sizescript : MonoBehaviour
         }
     }
 
+    public void SetSizeBig ()
+    {
+        getBig = true;
+        getSmall = false;
+        hasBlood = true;
+    }
 
+    public void SetSizeSmall ()
+    {
+        getBig = false;
+        getSmall = true;
+        hasBlood = false;
+    }
 }

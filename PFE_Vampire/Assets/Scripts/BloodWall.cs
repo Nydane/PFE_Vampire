@@ -6,6 +6,8 @@ public class BloodWall : MonoBehaviour
 {
     public PlayerController playerController;
     public float bloodWallVelocity = 20f;
+    public BloodBar bloodBar;
+
 
     // Start is called before the first frame update
     void Start()
@@ -18,15 +20,20 @@ public class BloodWall : MonoBehaviour
     {
         
     }
-    
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && Input.GetKey(KeyCode.D))
+        if (other.tag == "Player")
         {
-            playerController.rb.velocity = Vector3.right * bloodWallVelocity;
+            playerController.GiveMaxBlood(); // should give maxblood everytime, if not you suck.if not not put a highter number huehue.
             
         }
+        
 
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        
+        
         if (other.tag == "Player" && Input.GetKey(KeyCode.D))
         {
             playerController.rb.velocity = Vector3.right * bloodWallVelocity;
