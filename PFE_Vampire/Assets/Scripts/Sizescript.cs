@@ -21,7 +21,7 @@ public class Sizescript : MonoBehaviour
     private bool getBig = true;
     private bool getSmall = false;
     public bool isMoving = false;
-    public bool hasBlood = false;
+    public bool hasBlood = true;
 
     // Start is called before the first frame update
     void Start()
@@ -51,8 +51,8 @@ public class Sizescript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        getBig = true;
-
+        
+        SetSizeBig();
         // script pas use pour l'instant
         if (other.gameObject == player && isMoving == true)
         {

@@ -221,8 +221,7 @@ public class PlayerController : MonoBehaviour
                     {
                         GetBlood(20);
                     }
-                    currentBTN.SetOff();
-                    
+                    currentBTN.SetOff(); 
                 }
 
                 // si objet bigsize et clique droit on small l'objet
@@ -230,12 +229,17 @@ public class PlayerController : MonoBehaviour
                 {
                     // on va chercher le component script quand le raycast touche un bigobject
                     sizescript = orbRightInfo.collider.GetComponent<Sizescript>();
-                    sizescript.SetSizeSmall();
                     if (sizescript.hasBlood)
                     {
                         GetBlood(20);
                     }
+                    sizescript.SetSizeSmall();
+                }
 
+                if (orbRightInfo.collider.tag == "WeirdPlatform" && Input.GetButton("Fire2"))
+                {
+                    WeirdGround wrdPlatform = orbRightInfo.collider.GetComponent<WeirdGround>();
+                    wrdPlatform.BouncyPlatformOff();
                 }
             }
 
@@ -247,11 +251,12 @@ public class PlayerController : MonoBehaviour
                 if (orbLeftInfo.collider.tag == "BigObject")
                 {
                     sizescript = orbLeftInfo.collider.GetComponent<Sizescript>();
-                    sizescript.SetSizeSmall();
                     if (sizescript.hasBlood)
                     {
                         GetBlood(20);
                     }
+                    sizescript.SetSizeSmall();
+                    
                 }
 
 
@@ -267,6 +272,11 @@ public class PlayerController : MonoBehaviour
                     
                 }
 
+                if (orbLeftInfo.collider.tag == "WeirdPlatform" && Input.GetButton("Fire2"))
+                {
+                    WeirdGround wrdPlatform = orbLeftInfo.collider.GetComponent<WeirdGround>();
+                    wrdPlatform.BouncyPlatformOff();
+                }
             }
         }
         // on check si le joueur fait un clique droit puis on raycast quand le clique droitest use pour check tag et activer fonction de  bloord orb a toutes les frames
