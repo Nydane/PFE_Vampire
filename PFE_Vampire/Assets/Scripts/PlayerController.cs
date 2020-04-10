@@ -316,7 +316,7 @@ public class PlayerController : MonoBehaviour
         
 
         //Movement et rotation du personnage
-        float horizontalMovement = Input.GetAxis("Horizontal");
+        float horizontalMovement = Input.GetAxisRaw("Horizontal"); // le raw marche mieux sur clavier
         
 
 
@@ -360,9 +360,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-                       
-        //ce qui fait bouger le perso
-        rb.MovePosition(transform.position + new Vector3(speed, 0, 0) * Time.deltaTime);
+
+        
 
         
         //direction du personnage : on fait rotate le render et non le player en tant que tel
@@ -453,7 +452,13 @@ public class PlayerController : MonoBehaviour
         }
 
 
-    }  
+    }
+
+    private void FixedUpdate()
+    {
+        //ce qui fait bouger le perso
+        rb.MovePosition(transform.position + new Vector3(speed, 0, 0) * Time.deltaTime);
+    }
 
     // fonction pour jeter le sang
     public void UseBlood (int throwing)

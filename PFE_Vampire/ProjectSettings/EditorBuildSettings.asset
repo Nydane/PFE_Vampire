@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MaxScene.unity
+    guid: f4f45f6e95d83884fab496fb16974aab
   m_configObjects: {}
