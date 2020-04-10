@@ -383,6 +383,7 @@ public class PlayerController : MonoBehaviour
         if (horizontalMovement == 0)
         {
             animator.Play("Idle");
+            //speed = 0;
         }
 
 
