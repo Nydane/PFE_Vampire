@@ -18,8 +18,8 @@ public class Sizescript : MonoBehaviour
     public Vector3 bigSize;
 
     [Header("Bools")]
-    private bool getBig = true;
-    private bool getSmall = false;
+    public bool getBig = true;
+    public bool getSmall = false;
     public bool isMoving = false;
     public bool hasBlood = true;
 

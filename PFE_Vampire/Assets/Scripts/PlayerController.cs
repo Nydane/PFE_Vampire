@@ -395,7 +395,7 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
 
         }
-
+      
         //Piqué
         if (Input.GetKeyDown(KeyCode.A)  && currentBlood >= 20)
         {
