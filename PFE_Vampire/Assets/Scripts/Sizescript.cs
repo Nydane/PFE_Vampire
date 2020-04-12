@@ -51,8 +51,11 @@ public class Sizescript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.tag == "Blood")
+        {
+            SetSizeBig();
+        }
         
-        SetSizeBig();
         // script pas use pour l'instant
         if (other.gameObject == player && isMoving == true)
         {
