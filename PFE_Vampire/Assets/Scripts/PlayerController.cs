@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-       // else isGrounded = false;
+        // else isGrounded = false;
 
 
 
@@ -174,7 +174,11 @@ public class PlayerController : MonoBehaviour
                 //speed = 5; // Quand raycast touche un mur speed = 0 pour pas passer à travers
             }
 
-           
+            if (wallInfo.collider.tag == "BigObject")
+            {
+                isGrounded = true;
+                canDash = true;
+            }
         }
 
         if (Physics.Raycast(leftRay, out RaycastHit wallInfoLeft, rayLengthWall))
@@ -204,7 +208,11 @@ public class PlayerController : MonoBehaviour
 
             }
 
-
+            if (wallInfoLeft.collider.tag == "BigObject")
+            {
+                isGrounded = true;
+                canDash = true;
+            }
             //speed = 5; // Quand raycast touche un mur speed = 0 pour pas passer à travers
         }
 
